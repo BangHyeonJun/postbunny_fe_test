@@ -69,7 +69,7 @@ export class Carrot {
 		const py = y - height / 2;
 
 		ctx.beginPath();
-		ctx.filter = "blur(20px)";
+		ctx.filter = "blur(6px)";
 		ctx.ellipse(
 			px + width / 2,
 			py + height - 10,

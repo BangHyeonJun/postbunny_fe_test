@@ -66,6 +66,8 @@ export class CarrotManager {
 
 	draw(ctx: CanvasRenderingContext2D) {
 		if (this.SpriteBlob !== null) {
+			console.log("이미지 들어오는거지?");
+
 			const img = this.SpriteBlob;
 
 			this.carrots.forEach((carrot, i) => {

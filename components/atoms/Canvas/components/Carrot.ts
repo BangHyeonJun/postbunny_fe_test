@@ -73,8 +73,8 @@ export class Carrot {
 		ctx.ellipse(
 			px + width / 2,
 			py + height - 10,
-			4,
-			30,
+			height * 0.05,
+			width * 0.5,
 			Math.PI / 2,
 			0,
 			2 * Math.PI

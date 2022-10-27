@@ -75,13 +75,22 @@ export class Bunny {
 	}
 
 	private preloadImg() {
-		if (typeof window !== "undefined") {
+		let timeOutId = null;
+
+		const setSpriteBlob = () => {
+			if (typeof window === "undefined") {
+				timeOutId = setTimeout(() => setSpriteBlob());
+				return;
+			}
+
 			const img = new Image();
-			img.src = "http://localhost:3000/갈색 토끼 스프라이트.png";
+			img.src = `${location.origin}/갈색 토끼 스프라이트.png`;
 			img.onload = () => {
 				this.eggImgBlog = img;
 			};
-		}
+		};
+
+		setSpriteBlob();
 	}
 
 	egg(ctx: CanvasRenderingContext2D) {

@@ -2,6 +2,7 @@ interface CarrotProps {
 	screenWidth: number;
 	screenHeight: number;
 	nickname: string;
+	type: number;
 }
 
 export class Carrot {
@@ -12,6 +13,7 @@ export class Carrot {
 
 	private nicknameMarginTop = 8;
 	private nickname = "";
+	private type = 0;
 
 	private keyframe = {
 		waterBunny: [
@@ -25,6 +27,41 @@ export class Carrot {
 			{ x: 0, y: 1006, width: 97, height: 98, delay: 0 },
 			{ x: 97, y: 1006, width: 97, height: 98, delay: 0 },
 		],
+		carrot2: [
+			{ x: 194, y: 1006, width: 97, height: 98, delay: 0 },
+			{ x: 194, y: 1006, width: 97, height: 98, delay: 0 },
+			{ x: 194, y: 1006, width: 97, height: 98, delay: 0 },
+			{ x: 194, y: 1006, width: 97, height: 98, delay: 0 },
+			{ x: 291, y: 1006, width: 97, height: 98, delay: 0 },
+		],
+		carrot3: [
+			{ x: 388, y: 1006, width: 97, height: 98, delay: 0 },
+			{ x: 388, y: 1006, width: 97, height: 98, delay: 0 },
+			{ x: 388, y: 1006, width: 97, height: 98, delay: 0 },
+			{ x: 388, y: 1006, width: 97, height: 98, delay: 0 },
+			{ x: 485, y: 1006, width: 97, height: 98, delay: 0 },
+		],
+		carrot4: [
+			{ x: 0, y: 1105, width: 97, height: 98, delay: 0 },
+			{ x: 0, y: 1105, width: 97, height: 98, delay: 0 },
+			{ x: 0, y: 1105, width: 97, height: 98, delay: 0 },
+			{ x: 0, y: 1105, width: 97, height: 98, delay: 0 },
+			{ x: 97, y: 1105, width: 97, height: 98, delay: 0 },
+		],
+		carrot5: [
+			{ x: 194, y: 1105, width: 97, height: 98, delay: 0 },
+			{ x: 194, y: 1105, width: 97, height: 98, delay: 0 },
+			{ x: 194, y: 1105, width: 97, height: 98, delay: 0 },
+			{ x: 194, y: 1105, width: 97, height: 98, delay: 0 },
+			{ x: 291, y: 1105, width: 97, height: 98, delay: 0 },
+		],
+		carrot6: [
+			{ x: 388, y: 1105, width: 97, height: 98, delay: 0 },
+			{ x: 388, y: 1105, width: 97, height: 98, delay: 0 },
+			{ x: 388, y: 1105, width: 97, height: 98, delay: 0 },
+			{ x: 388, y: 1105, width: 97, height: 98, delay: 0 },
+			{ x: 485, y: 1105, width: 97, height: 98, delay: 0 },
+		],
 	};
 
 	constructor(initialProps: CarrotProps) {
@@ -32,6 +69,7 @@ export class Carrot {
 		this.screenHeight = initialProps.screenHeight;
 
 		this.nickname = initialProps.nickname;
+		this.type = initialProps.type;
 
 		this.carrotWidth = this.carrotWidth * (initialProps.screenHeight / 915);
 		this.carrotHeight = this.carrotHeight * (initialProps.screenHeight / 915);
@@ -59,7 +97,27 @@ export class Carrot {
 		ctx.save();
 		ctx.beginPath();
 
-		const carrotKeyframe = this.keyframe.carrot;
+		let carrotKeyframe = this.keyframe.carrot;
+		switch (this.type) {
+			case 0:
+				carrotKeyframe = this.keyframe.carrot;
+				break;
+			case 1:
+				carrotKeyframe = this.keyframe.carrot2;
+				break;
+			case 2:
+				carrotKeyframe = this.keyframe.carrot3;
+				break;
+			case 3:
+				carrotKeyframe = this.keyframe.carrot4;
+				break;
+			case 4:
+				carrotKeyframe = this.keyframe.carrot5;
+				break;
+			case 5:
+				carrotKeyframe = this.keyframe.carrot6;
+				break;
+		}
 		const size = Math.floor(index / 30) % carrotKeyframe.length;
 
 		const width = carrotKeyframe[size].width * (this.screenHeight / 1464);

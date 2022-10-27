@@ -47,21 +47,27 @@ export class CarrotManager {
 		this.carrots = [
 			{
 				nickname: "방1",
+				type: 0,
 			},
 			{
 				nickname: "방2",
+				type: 1,
 			},
 			{
 				nickname: "방3",
+				type: 2,
 			},
 			{
 				nickname: "방4",
+				type: 3,
 			},
 			{
 				nickname: "방5",
+				type: 4,
 			},
 			{
 				nickname: "방6",
+				type: 5,
 			},
 		].map(
 			(carrotData) =>

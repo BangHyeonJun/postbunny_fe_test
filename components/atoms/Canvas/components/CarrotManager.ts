@@ -73,21 +73,21 @@ export class CarrotManager {
 		);
 	}
 
-	draw(ctx: CanvasRenderingContext2D) {
+	draw(ctx: CanvasRenderingContext2D, posX: number) {
 		if (this.SpriteBlob !== null) {
 			const img = this.SpriteBlob;
 
 			this.carrots.forEach((carrot, i) => {
-				carrot.draw(
-					ctx,
-					img,
-					this.index,
+				let px =
 					this.screenHeight * 0.05 +
-						Math.ceil(this.screenWidth * 0.4 * Math.floor(i / 2)),
+					Math.ceil(this.screenWidth * 0.4 * Math.floor(i / 2)) -
+					(posX <= 0 ? 0 : posX);
+				const py =
 					i % 2 === 0
 						? this.screenHeight * 0.25 + (this.screenHeight * 0.13) / 2
-						: this.screenHeight * 0.63 + (this.screenHeight * 0.13) / 2
-				);
+						: this.screenHeight * 0.63 + (this.screenHeight * 0.13) / 2;
+
+				carrot.draw(ctx, img, this.index, px, py);
 			});
 
 			this.index += 1;

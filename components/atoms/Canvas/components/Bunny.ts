@@ -5,7 +5,7 @@ interface BunnyProps {
 
 export class Bunny {
 	private index: number = 0;
-	private eggImgBlog: HTMLImageElement | null = null;
+	private SpriteBlob: HTMLImageElement | null = null;
 	private screenWidth = 0;
 	private screenHeight = 0;
 
@@ -86,7 +86,7 @@ export class Bunny {
 			const img = new Image();
 			img.src = `${location.origin}/갈색 토끼 스프라이트.png`;
 			img.onload = () => {
-				this.eggImgBlog = img;
+				this.SpriteBlob = img;
 			};
 		};
 
@@ -94,17 +94,17 @@ export class Bunny {
 	}
 
 	egg(ctx: CanvasRenderingContext2D) {
-		if (this.eggImgBlog !== null) {
+		if (this.SpriteBlob !== null) {
 			ctx.save();
 
-			const size = Math.floor(this.index / 60) % this.keyframe.egg.length;
-			const egg = this.keyframe.egg;
+			const targetKeyframe = this.keyframe.egg;
+			const size = Math.floor(this.index / 60) % targetKeyframe.length;
 
 			const test = this.getCircleY(this.index / 60, 5);
 
 			ctx.translate(
 				this.screenWidth / 2 -
-					(egg[size].width * (this.screenHeight / 915)) / 2,
+					(targetKeyframe[size].width * (this.screenHeight / 915)) / 2,
 				this.screenHeight * 0.35
 			);
 
@@ -113,15 +113,15 @@ export class Bunny {
 			ctx.translate(test * 2.8, test * -0.85);
 
 			ctx.drawImage(
-				this.eggImgBlog,
-				egg[size].x,
-				egg[size].y,
-				egg[size].width,
-				egg[size].height,
+				this.SpriteBlob,
+				targetKeyframe[size].x,
+				targetKeyframe[size].y,
+				targetKeyframe[size].width,
+				targetKeyframe[size].height,
 				0,
 				0,
-				egg[size].width * (this.screenHeight / 915),
-				egg[size].height * (this.screenHeight / 915)
+				targetKeyframe[size].width * (this.screenHeight / 915),
+				targetKeyframe[size].height * (this.screenHeight / 915)
 			);
 
 			this.index = this.index + 1;
@@ -130,61 +130,61 @@ export class Bunny {
 		}
 	}
 
-	draw(
-		ctx: CanvasRenderingContext2D,
-		type: number,
-		x: number,
-		y: number,
-		index: number
-	) {
-		if (this.eggImgBlog !== null) {
-			ctx.save();
-			// ctx.drawImage(this.eggImgBlog, x, y);
-			// ctx.rotate((Math.PI / 180) * 25);
+	// draw(
+	// 	ctx: CanvasRenderingContext2D,
+	// 	type: number,
+	// 	x: number,
+	// 	y: number,
+	// 	index: number
+	// ) {
+	// 	if (this.eggImgBlog !== null) {
+	// 		ctx.save();
+	// 		// ctx.drawImage(this.eggImgBlog, x, y);
+	// 		// ctx.rotate((Math.PI / 180) * 25);
 
-			// 740 968
+	// 		// 740 968
 
-			// ctx.translate(x, y);
-			// ctx.fillRect(-50, -50, 100, 100);
-			// ctx.rotate((Math.PI / 180) * index);
-			// ctx.drawImage(this.eggImgBlog, 162.19 * -0.5, 214.19 * -0.5);
+	// 		// ctx.translate(x, y);
+	// 		// ctx.fillRect(-50, -50, 100, 100);
+	// 		// ctx.rotate((Math.PI / 180) * index);
+	// 		// ctx.drawImage(this.eggImgBlog, 162.19 * -0.5, 214.19 * -0.5);
 
-			ctx.drawImage(
-				this.eggImgBlog,
-				89 * index,
-				186 * type,
-				89,
-				186,
-				140,
-				350,
-				66,
-				138
-			);
+	// 		ctx.drawImage(
+	// 			this.eggImgBlog,
+	// 			89 * index,
+	// 			186 * type,
+	// 			89,
+	// 			186,
+	// 			140,
+	// 			350,
+	// 			66,
+	// 			138
+	// 		);
 
-			ctx.restore();
-		}
-	}
+	// 		ctx.restore();
+	// 	}
+	// }
 
 	stay(ctx: CanvasRenderingContext2D) {
-		if (this.eggImgBlog !== null) {
+		if (this.SpriteBlob !== null) {
 			ctx.save();
 
-			const stayBunny = this.keyframe.stayBunny;
-			const size = Math.floor(this.index / 60) % stayBunny.length;
+			const targetKeyframe = this.keyframe.stayBunny;
+			const size = Math.floor(this.index / 60) % targetKeyframe.length;
 
 			const test = this.getCircleY(this.index / 60, 5);
 
 			ctx.drawImage(
-				this.eggImgBlog,
-				stayBunny[size].x,
-				stayBunny[size].y,
-				stayBunny[size].width,
-				stayBunny[size].height,
+				this.SpriteBlob,
+				targetKeyframe[size].x,
+				targetKeyframe[size].y,
+				targetKeyframe[size].width,
+				targetKeyframe[size].height,
 				this.screenWidth / 2 -
-					(stayBunny[size].width * (this.screenHeight / 915)) / 2,
+					(targetKeyframe[size].width * (this.screenHeight / 915)) / 2,
 				this.screenHeight * 0.35,
-				stayBunny[size].width * (this.screenHeight / 915),
-				stayBunny[size].height * (this.screenHeight / 915)
+				targetKeyframe[size].width * (this.screenHeight / 915),
+				targetKeyframe[size].height * (this.screenHeight / 915)
 			);
 
 			this.index = this.index + 1;
@@ -194,25 +194,77 @@ export class Bunny {
 	}
 
 	hello(ctx: CanvasRenderingContext2D) {
-		if (this.eggImgBlog !== null) {
+		if (this.SpriteBlob !== null) {
 			ctx.save();
 
-			const helloBunny = this.keyframe.helloBunny;
-			const size = Math.floor(this.index / 10) % helloBunny.length;
+			const targetKeyframe = this.keyframe.helloBunny;
+			const size = Math.floor(this.index / 10) % targetKeyframe.length;
 
 			const test = this.getCircleY(this.index / 60, 5);
 
 			ctx.drawImage(
-				this.eggImgBlog,
-				helloBunny[size].x,
-				helloBunny[size].y,
-				helloBunny[size].width,
-				helloBunny[size].height,
+				this.SpriteBlob,
+				targetKeyframe[size].x,
+				targetKeyframe[size].y,
+				targetKeyframe[size].width,
+				targetKeyframe[size].height,
 				this.screenWidth / 2 -
-					(helloBunny[size].width * (this.screenHeight / 915)) / 2,
+					(targetKeyframe[size].width * (this.screenHeight / 915)) / 2,
 				this.screenHeight * 0.35,
-				helloBunny[size].width * (this.screenHeight / 915),
-				helloBunny[size].height * (this.screenHeight / 915)
+				targetKeyframe[size].width * (this.screenHeight / 915),
+				targetKeyframe[size].height * (this.screenHeight / 915)
+			);
+
+			this.index = this.index + 1;
+
+			ctx.restore();
+		}
+	}
+
+	moveLeft(ctx: CanvasRenderingContext2D) {
+		if (this.SpriteBlob !== null) {
+			ctx.save();
+
+			const targetKeyframe = this.keyframe.moveLeft;
+			const size = Math.floor(this.index / 8) % targetKeyframe.length;
+
+			ctx.drawImage(
+				this.SpriteBlob,
+				targetKeyframe[size].x,
+				targetKeyframe[size].y,
+				targetKeyframe[size].width,
+				targetKeyframe[size].height,
+				this.screenWidth / 2 -
+					(targetKeyframe[size].width * (this.screenHeight / 915)) / 2,
+				this.screenHeight * 0.35,
+				targetKeyframe[size].width * (this.screenHeight / 915),
+				targetKeyframe[size].height * (this.screenHeight / 915)
+			);
+
+			this.index = this.index + 1;
+
+			ctx.restore();
+		}
+	}
+
+	moveRight(ctx: CanvasRenderingContext2D) {
+		if (this.SpriteBlob !== null) {
+			ctx.save();
+
+			const targetKeyframe = this.keyframe.moveRight;
+			const size = Math.floor(this.index / 8) % targetKeyframe.length;
+
+			ctx.drawImage(
+				this.SpriteBlob,
+				targetKeyframe[size].x,
+				targetKeyframe[size].y,
+				targetKeyframe[size].width,
+				targetKeyframe[size].height,
+				this.screenWidth / 2 -
+					(targetKeyframe[size].width * (this.screenHeight / 915)) / 2,
+				this.screenHeight * 0.35,
+				targetKeyframe[size].width * (this.screenHeight / 915),
+				targetKeyframe[size].height * (this.screenHeight / 915)
 			);
 
 			this.index = this.index + 1;

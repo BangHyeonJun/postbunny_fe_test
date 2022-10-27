@@ -1,4 +1,4 @@
-import { PI2 } from "../lib/utils/Math";
+import { PI2 } from "lib/utils/Math";
 
 export interface ILightSource {
 	drawRadialGradientBehindLightSource: (ctx: CanvasRenderingContext2D) => void;

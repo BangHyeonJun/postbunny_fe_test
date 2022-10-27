@@ -6,12 +6,7 @@ interface ICloud {
 	speed?: number;
 }
 
-interface IDrawOption {
-	x: number;
-	y: number;
-}
 export class Cloud {
-	private index: number = 0;
 	private x: number = 0;
 	private y: number = 0;
 	private scale: number = 1;
@@ -33,30 +28,19 @@ export class Cloud {
 			Math.floor(Math.random() * 50) + initialProps.screenWidth + 180 * 1.2;
 	}
 
-	/**
-	 * 구름을 그려주는 메소드
-	 */
-	init(ctx: CanvasRenderingContext2D) {
-		this.index = 0;
-		this.drawCloudShadow(ctx);
-		this.drawCloud(ctx);
-	}
-
-	animate(ctx: CanvasRenderingContext2D) {
-		this.drawCloudShadow(ctx);
-		this.drawCloud(ctx);
-		this.index += 1;
+	animate(ctx: CanvasRenderingContext2D, index: number) {
+		this.drawCloudShadow(ctx, index);
+		this.drawCloud(ctx, index);
 	}
 
 	/**
 	 * 구름을 그려주는 메소드
 	 */
-	private drawCloud(ctx: CanvasRenderingContext2D) {
+	private drawCloud(ctx: CanvasRenderingContext2D, index: number) {
 		ctx.save();
 
-		// ctx.setTransform(1, 0, 0, 1, 0, 0);
 		ctx.translate(
-			((this.x + this.index * this.speed) % (this.maxX + Math.abs(this.minX))) +
+			((this.x + index * this.speed) % (this.maxX + Math.abs(this.minX))) +
 				this.minX,
 			this.y
 		);
@@ -100,7 +84,7 @@ export class Cloud {
 	/**
 	 * 구름 쉐도우를 그려주는 메소드
 	 */
-	private drawCloudShadow(ctx: CanvasRenderingContext2D) {
+	private drawCloudShadow(ctx: CanvasRenderingContext2D, index: number) {
 		ctx.save();
 
 		ctx.strokeStyle = "rgba(0, 0, 0, 0.1)";
@@ -109,9 +93,8 @@ export class Cloud {
 		ctx.shadowColor = "rgba(0, 0, 0, 1)";
 		ctx.shadowBlur = 15;
 
-		// ctx.setTransform(1, 0, 0, 1, 0, 0);
 		ctx.translate(
-			((this.x + this.index * this.speed) % (this.maxX + Math.abs(this.minX))) +
+			((this.x + index * this.speed) % (this.maxX + Math.abs(this.minX))) +
 				this.minX,
 			this.y
 		);

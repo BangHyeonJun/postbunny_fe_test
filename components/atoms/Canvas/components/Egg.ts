@@ -48,7 +48,7 @@ export class Egg {
 			ctx.save();
 
 			ctx.translate(this.x, this.y);
-			// console.log((1 - Math.abs(Math.cos(this.index * 0.01) * 0.1)).toFixed(3));
+
 			ctx.transform(
 				Number((1 - Math.abs(Math.cos(this.index * 0.01) * 0.05)).toFixed(3)),
 				0,

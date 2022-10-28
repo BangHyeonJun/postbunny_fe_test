@@ -93,7 +93,7 @@ export class CarrotManager {
 						? this.screenHeight * 0.25 + (this.screenHeight * 0.13) / 2
 						: this.screenHeight * 0.63 + (this.screenHeight * 0.13) / 2;
 
-				carrot.draw(ctx, img, this.index, px, py);
+				carrot.draw(ctx, img, this.index, Math.ceil(px), Math.ceil(py));
 			});
 
 			this.index += 1;

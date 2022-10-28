@@ -98,26 +98,26 @@ export class Carrot {
 		ctx.beginPath();
 
 		let carrotKeyframe = this.keyframe.carrot;
-		switch (this.type) {
-			case 0:
-				carrotKeyframe = this.keyframe.carrot;
-				break;
-			case 1:
-				carrotKeyframe = this.keyframe.carrot2;
-				break;
-			case 2:
-				carrotKeyframe = this.keyframe.carrot3;
-				break;
-			case 3:
-				carrotKeyframe = this.keyframe.carrot4;
-				break;
-			case 4:
-				carrotKeyframe = this.keyframe.carrot5;
-				break;
-			case 5:
-				carrotKeyframe = this.keyframe.carrot6;
-				break;
-		}
+		// switch (this.type) {
+		// 	case 0:
+		// 		carrotKeyframe = this.keyframe.carrot;
+		// 		break;
+		// 	case 1:
+		// 		carrotKeyframe = this.keyframe.carrot2;
+		// 		break;
+		// 	case 2:
+		// 		carrotKeyframe = this.keyframe.carrot3;
+		// 		break;
+		// 	case 3:
+		// 		carrotKeyframe = this.keyframe.carrot4;
+		// 		break;
+		// 	case 4:
+		// 		carrotKeyframe = this.keyframe.carrot5;
+		// 		break;
+		// 	case 5:
+		// 		carrotKeyframe = this.keyframe.carrot6;
+		// 		break;
+		// }
 		const size = Math.floor(index / 30) % carrotKeyframe.length;
 
 		const width = carrotKeyframe[size].width * (this.screenHeight / 1464);
@@ -126,19 +126,19 @@ export class Carrot {
 		const px = x;
 		const py = y - height / 2;
 
-		ctx.beginPath();
-		ctx.filter = "blur(6px)";
-		ctx.ellipse(
-			px + width / 2,
-			py + height - 10,
-			height * 0.05,
-			width * 0.5,
-			Math.PI / 2,
-			0,
-			2 * Math.PI
-		);
-		ctx.stroke();
-		ctx.fill();
+		// ctx.beginPath();
+		// ctx.filter = "blur(6px)";
+		// ctx.ellipse(
+		// 	px + width / 2,
+		// 	py + height - 10,
+		// 	height * 0.05,
+		// 	width * 0.5,
+		// 	Math.PI / 2,
+		// 	0,
+		// 	2 * Math.PI
+		// );
+		// ctx.stroke();
+		// ctx.fill();
 
 		ctx.filter = "blur(0px)";
 		ctx.drawImage(

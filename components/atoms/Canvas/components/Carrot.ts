@@ -1,6 +1,8 @@
 interface CarrotProps {
 	screenWidth: number;
 	screenHeight: number;
+	px: number;
+	py: number;
 	nickname: string;
 	type: number;
 }
@@ -8,12 +10,16 @@ interface CarrotProps {
 export class Carrot {
 	private screenWidth = 0;
 	private screenHeight = 0;
-	private carrotWidth = 0;
-	private carrotHeight = 0;
+
+	carrotWidth = 0;
+	carrotHeight = 0;
 
 	private nicknameMarginTop = 8;
 	private nickname = "";
 	private type = 0;
+
+	px = 0;
+	py = 0;
 
 	private keyframe = {
 		waterBunny: [
@@ -62,6 +68,20 @@ export class Carrot {
 			{ x: 388, y: 1105, width: 97, height: 98, delay: 0 },
 			{ x: 485, y: 1105, width: 97, height: 98, delay: 0 },
 		],
+		helloBunny: [
+			{ x: 220, y: 207, width: 110, height: 200, delay: 0 },
+			{ x: 330, y: 207, width: 110, height: 200, delay: 0 },
+			{ x: 440, y: 207, width: 110, height: 200, delay: 0 },
+			{ x: 330, y: 207, width: 110, height: 200, delay: 0 },
+			{ x: 220, y: 207, width: 110, height: 200, delay: 0 },
+			{ x: 330, y: 207, width: 110, height: 200, delay: 0 },
+			{ x: 440, y: 207, width: 110, height: 200, delay: 0 },
+			{ x: 550, y: 207, width: 110, height: 200, delay: 0 },
+			{ x: 220, y: 207, width: 110, height: 200, delay: 0 },
+			{ x: 330, y: 207, width: 110, height: 200, delay: 0 },
+			{ x: 440, y: 207, width: 110, height: 200, delay: 0 },
+			{ x: 330, y: 207, width: 110, height: 200, delay: 0 },
+		],
 	};
 
 	constructor(initialProps: CarrotProps) {
@@ -71,6 +91,9 @@ export class Carrot {
 		this.nickname = initialProps.nickname;
 		this.type = initialProps.type;
 
+		this.px = initialProps.px;
+		this.py = initialProps.py;
+
 		this.carrotWidth = this.carrotWidth * (initialProps.screenHeight / 915);
 		this.carrotHeight = this.carrotHeight * (initialProps.screenHeight / 915);
 	}
@@ -79,12 +102,11 @@ export class Carrot {
 		ctx: CanvasRenderingContext2D,
 		image: HTMLImageElement,
 		index: number,
-		x: number,
-		y: number
+		moveX: number
 	) {
-		this.drawCarrot(ctx, image, index, x, y);
-		this.drawTitle(ctx, index, this.nickname, x, y);
-		// this.drawBunny(ctx);
+		this.drawCarrot(ctx, image, index, this.px - moveX, this.py);
+		this.drawBunny(ctx, image, index, this.px - moveX, this.py);
+		this.drawTitle(ctx, index, this.nickname, this.px - moveX, this.py);
 	}
 
 	private drawCarrot(
@@ -98,26 +120,26 @@ export class Carrot {
 		ctx.beginPath();
 
 		let carrotKeyframe = this.keyframe.carrot;
-		// switch (this.type) {
-		// 	case 0:
-		// 		carrotKeyframe = this.keyframe.carrot;
-		// 		break;
-		// 	case 1:
-		// 		carrotKeyframe = this.keyframe.carrot2;
-		// 		break;
-		// 	case 2:
-		// 		carrotKeyframe = this.keyframe.carrot3;
-		// 		break;
-		// 	case 3:
-		// 		carrotKeyframe = this.keyframe.carrot4;
-		// 		break;
-		// 	case 4:
-		// 		carrotKeyframe = this.keyframe.carrot5;
-		// 		break;
-		// 	case 5:
-		// 		carrotKeyframe = this.keyframe.carrot6;
-		// 		break;
-		// }
+		switch (this.type) {
+			case 0:
+				carrotKeyframe = this.keyframe.carrot;
+				break;
+			case 1:
+				carrotKeyframe = this.keyframe.carrot2;
+				break;
+			case 2:
+				carrotKeyframe = this.keyframe.carrot3;
+				break;
+			case 3:
+				carrotKeyframe = this.keyframe.carrot4;
+				break;
+			case 4:
+				carrotKeyframe = this.keyframe.carrot5;
+				break;
+			case 5:
+				carrotKeyframe = this.keyframe.carrot6;
+				break;
+		}
 		const size = Math.floor(index / 30) % carrotKeyframe.length;
 
 		const width = carrotKeyframe[size].width * (this.screenHeight / 1464);
@@ -126,21 +148,7 @@ export class Carrot {
 		const px = x;
 		const py = y - height / 2;
 
-		// ctx.beginPath();
-		// ctx.filter = "blur(6px)";
-		// ctx.ellipse(
-		// 	px + width / 2,
-		// 	py + height - 10,
-		// 	height * 0.05,
-		// 	width * 0.5,
-		// 	Math.PI / 2,
-		// 	0,
-		// 	2 * Math.PI
-		// );
-		// ctx.stroke();
-		// ctx.fill();
-
-		ctx.filter = "blur(0px)";
+		ctx.beginPath();
 		ctx.drawImage(
 			image,
 			carrotKeyframe[size].x,
@@ -215,5 +223,38 @@ export class Carrot {
 		ctx.restore();
 	}
 
-	private drawBunny(ctx: CanvasRenderingContext2D) {}
+	private drawBunny(
+		ctx: CanvasRenderingContext2D,
+		image: HTMLImageElement,
+		index: number,
+		x: number,
+		y: number
+	) {
+		ctx.save();
+		ctx.beginPath();
+
+		const carrotKeyframe = this.keyframe.waterBunny;
+		const size = Math.floor(index / 10) % carrotKeyframe.length;
+
+		const width = carrotKeyframe[size].width * (this.screenHeight / 2600);
+		const height = carrotKeyframe[size].height * (this.screenHeight / 2600);
+
+		const px = x;
+		const py = y - height / 2;
+
+		ctx.beginPath();
+		ctx.drawImage(
+			image,
+			carrotKeyframe[size].x,
+			carrotKeyframe[size].y,
+			carrotKeyframe[size].width,
+			carrotKeyframe[size].height,
+			px + width - 20,
+			py - 10,
+			width,
+			height
+		);
+
+		ctx.restore();
+	}
 }

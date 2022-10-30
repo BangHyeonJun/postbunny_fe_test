@@ -6,8 +6,14 @@ const useFullSize = () => {
 
 	useEffect(() => {
 		const setClientSize = () => {
-			document.documentElement.style.height = "100%";
-			document.body.style.height = "100%";
+			// document.documentElement.style.height = "100%";
+			// document.body.style.height = "100%";
+
+			if (window !== undefined) {
+				console.log("들어옴?", window.outerHeight, window.outerHeight);
+				document.documentElement.style.height = `${window.outerHeight}px`;
+				document.body.style.height = `${window.outerHeight}px`;
+			}
 			document.body.style.overflow = "hidden";
 			document.body.style.backgroundColor = "#ffffff";
 

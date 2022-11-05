@@ -1,3 +1,4 @@
+import { ShareSNS } from "@/lib/utils/Share";
 import classNames from "classnames/bind";
 import { useRouter } from "next/router";
 import styles from "./MainActions.module.scss";
@@ -9,6 +10,10 @@ function MainActions() {
 
 	const handleClickPostBunnyBtn = () => {
 		router.push(`/post/bunny`);
+	};
+
+	const handleClickShareBtn = () => {
+		ShareSNS();
 	};
 
 	return (
@@ -26,7 +31,12 @@ function MainActions() {
 				>
 					토끼에게 당근 심어주기
 				</button>
-				<button className={cx("shareBtn", "button")}>공유하기</button>
+				<button
+					className={cx("shareBtn", "button")}
+					onClick={handleClickShareBtn}
+				>
+					공유하기
+				</button>
 			</div>
 		</>
 	);

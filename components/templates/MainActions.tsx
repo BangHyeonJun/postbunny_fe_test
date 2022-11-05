@@ -1,3 +1,8 @@
+import {
+	closeKakaoBrowser,
+	isKakaoBrowser,
+	openChromeBrowser,
+} from "@/lib/utils/Browser";
 import { ShareSNS } from "@/lib/utils/Share";
 import classNames from "classnames/bind";
 import { useRouter } from "next/router";

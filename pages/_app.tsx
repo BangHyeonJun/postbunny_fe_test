@@ -1,5 +1,5 @@
 import type { AppProps } from "next/app";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
 	Hydrate,
 	QueryClient,
@@ -12,6 +12,11 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { CacheProvider, EmotionCache } from "@emotion/react";
 import theme from "../src/theme";
 import createEmotionCache from "../src/createEmotionCache";
+import {
+	closeKakaoBrowser,
+	isKakaoBrowser,
+	openChromeBrowser,
+} from "@/lib/utils/Browser";
 
 const clientSideEmotionCache = createEmotionCache();
 
@@ -22,6 +27,13 @@ interface MyAppProps extends AppProps {
 function MyApp(props: MyAppProps) {
 	const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
 	const [queryClient] = useState(() => new QueryClient());
+
+	useEffect(() => {
+		if (isKakaoBrowser()) {
+			closeKakaoBrowser();
+			openChromeBrowser();
+		}
+	}, []);
 
 	return (
 		<QueryClientProvider client={queryClient}>

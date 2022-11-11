@@ -11,14 +11,18 @@ export class Bunny {
 
 	private keyframe = {
 		moveLeft: [
-			{ x: 0, y: 606, width: 110, height: 200, delay: 0 },
-			{ x: 110, y: 606, width: 110, height: 200, delay: 0 },
-			{ x: 220, y: 606, width: 110, height: 200, delay: 0 },
-			{ x: 330, y: 606, width: 110, height: 200, delay: 0 },
-			{ x: 440, y: 606, width: 110, height: 200, delay: 0 },
-			{ x: 550, y: 606, width: 110, height: 200, delay: 0 },
-			{ x: 660, y: 606, width: 110, height: 200, delay: 0 },
-			{ x: 770, y: 606, width: 110, height: 200, delay: 0 },
+			{ x: 0, y: 0, width: 500, height: 500, delay: 0 },
+			{ x: 500, y: 0, width: 500, height: 500, delay: 0 },
+			{ x: 1000, y: 0, width: 500, height: 500, delay: 0 },
+			{ x: 1500, y: 0, width: 500, height: 500, delay: 0 },
+			{ x: 2000, y: 0, width: 500, height: 500, delay: 0 },
+			{ x: 2500, y: 0, width: 500, height: 500, delay: 0 },
+			{ x: 3000, y: 0, width: 500, height: 500, delay: 0 },
+			{ x: 3500, y: 0, width: 500, height: 500, delay: 0 },
+			{ x: 4000, y: 0, width: 500, height: 500, delay: 0 },
+			{ x: 4500, y: 0, width: 500, height: 500, delay: 0 },
+			{ x: 5000, y: 0, width: 500, height: 500, delay: 0 },
+			{ x: 5500, y: 0, width: 500, height: 500, delay: 0 },
 		],
 		moveRight: [
 			{ x: 0, y: 406, width: 110, height: 200, delay: 0 },
@@ -84,7 +88,7 @@ export class Bunny {
 			}
 
 			const img = new Image();
-			img.src = `${location.origin}/갈색 토끼 스프라이트.png`;
+			img.src = `${location.origin}/왼쪽토끼.png`;
 			img.onload = () => {
 				this.SpriteBlob = img;
 			};
@@ -226,7 +230,7 @@ export class Bunny {
 			ctx.save();
 
 			const targetKeyframe = this.keyframe.moveLeft;
-			const size = Math.floor(this.index / 8) % targetKeyframe.length;
+			const size = Math.floor(this.index / 6) % targetKeyframe.length;
 
 			ctx.drawImage(
 				this.SpriteBlob,
@@ -259,12 +263,12 @@ export class Bunny {
 				targetKeyframe[size].x,
 				targetKeyframe[size].y,
 				targetKeyframe[size].width,
-				targetKeyframe[size].height,
-				this.screenWidth / 2 -
-					(targetKeyframe[size].width * (this.screenHeight / 915)) / 2,
-				this.screenHeight * 0.35,
-				targetKeyframe[size].width * (this.screenHeight / 915),
-				targetKeyframe[size].height * (this.screenHeight / 915)
+				targetKeyframe[size].height
+				// this.screenWidth / 2 -
+				// 	(targetKeyframe[size].width * (this.screenHeight / 915)) / 2,
+				// this.screenHeight * 0.35,
+				// targetKeyframe[size].width * (this.screenHeight / 915),
+				// targetKeyframe[size].height * (this.screenHeight / 915)
 			);
 
 			this.index = this.index + 1;

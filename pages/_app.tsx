@@ -12,14 +12,9 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { CacheProvider, EmotionCache } from "@emotion/react";
 import theme from "../src/theme";
 import createEmotionCache from "../src/createEmotionCache";
-import {
-	closeKakaoBrowser,
-	isKakaoBrowser,
-	openChromeBrowser,
-} from "@/lib/utils/Browser";
+import { RecoilRoot } from "recoil";
 
 const clientSideEmotionCache = createEmotionCache();
-
 interface MyAppProps extends AppProps {
 	emotionCache?: EmotionCache;
 }
@@ -28,26 +23,22 @@ function MyApp(props: MyAppProps) {
 	const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
 	const [queryClient] = useState(() => new QueryClient());
 
-	useEffect(() => {
-		if (isKakaoBrowser()) {
-			closeKakaoBrowser();
-			openChromeBrowser();
-		}
-	}, []);
-
 	return (
 		<QueryClientProvider client={queryClient}>
 			<Hydrate state={(pageProps as any).dehydratedState}>
-				<CacheProvider value={emotionCache}>
-					<ThemeProvider theme={theme}>
-						{/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-						<CssBaseline />
-						<Component {...pageProps} />
-					</ThemeProvider>
-				</CacheProvider>
+				<RecoilRoot>
+					<CacheProvider value={emotionCache}>
+						<ThemeProvider theme={theme}>
+							{/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+							<CssBaseline />
+							<Component {...pageProps} />
+						</ThemeProvider>
+					</CacheProvider>
+				</RecoilRoot>
 			</Hydrate>
 
-			<ReactQueryDevtools />
+			{/* 추후 쿼리 사용할 때 열기*/}
+			{/* <ReactQueryDevtools /> */}
 		</QueryClientProvider>
 	);
 }

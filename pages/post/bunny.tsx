@@ -5,9 +5,12 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
-import LinearProgress, {
+import {
+	LinearProgress as MUILinearProgress,
 	LinearProgressProps,
-} from "@mui/material/LinearProgress";
+	linearProgressClasses,
+	styled,
+} from "@mui/material";
 import Container from "@mui/material/Container";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 
@@ -29,6 +32,18 @@ import { useRouter } from "next/router";
 
 const cx = classNames.bind(styles);
 
+const LinearProgress = styled(MUILinearProgress)(({ theme }) => ({
+	height: 12,
+	borderRadius: 30,
+	[`&.${linearProgressClasses.colorPrimary}`]: {
+		backgroundColor: "#E6E6E6",
+	},
+	[`& .${linearProgressClasses.bar}`]: {
+		borderRadius: 30,
+		backgroundColor: "#FF9416",
+	},
+}));
+
 type EggType =
 	| "BeigeEggImg"
 	| "BlackEggImg"
@@ -46,15 +61,17 @@ function LinearProgressWithLabel(
 				display: "flex",
 				justifyContent: "space-between",
 				alignItems: "center",
-				gap: 1,
+				padding: "0px 10px",
+				gap: 1.25,
+				backgroundColor: "rgba(255, 255, 255, 0.9)",
+				boxShadow: `0px 4px 4px rgba(0, 0, 0, 0.25)`,
+				borderRadius: 30,
 			}}
 		>
 			<Box
 				sx={{
 					width: "100%",
-					p: 1,
-					borderRadius: 1,
-					backgroundColor: "rgba(255, 255, 255, 0.9)",
+					p: "8px 0px",
 					alignSelf: "stretch",
 					display: "flex",
 					flexDirection: "column",
@@ -65,23 +82,12 @@ function LinearProgressWithLabel(
 					variant="determinate"
 					{...props}
 					value={Math.ceil((props.currstep / props.finishstep) * 100)}
-					sx={{
-						height: 8,
-						borderRadius: 1,
-					}}
 				/>
 			</Box>
-			<Box
-				sx={{
-					p: 1,
-					borderRadius: 1,
-					backgroundColor: "rgba(255, 255, 255, 0.9)",
-				}}
-			>
-				<Typography
-					variant="body2"
-					color="text.secondary"
-				>{`${props.currstep}/${props.finishstep}`}</Typography>
+			<Box>
+				<Typography variant="body2">{`${Math.ceil(
+					(props.currstep / props.finishstep) * 100
+				)}%`}</Typography>
 			</Box>
 		</Box>
 	);
@@ -581,16 +587,17 @@ function Bunny() {
 
 					<Box
 						sx={{
-							mt: 1,
-							p: 1,
-							borderRadius: 1,
-							backgroundColor: "rgba(255, 255, 255, 0.9)",
-							// display: "flex",
-							// justifyContent: "center",
+							padding: "10px 20px",
+							borderRadius: "6px",
+							backgroundColor: "rgba(255, 255, 255, 0.8)",
+							boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+							display: "flex",
+							alignItems: "center",
+							justifyContent: "center",
 						}}
 					>
 						<Typography variant="subtitle1" component="p">
-							편지 전달을 도와줄 토끼알을 선택해 주세요 ❤️
+							편지를 전달할 토끼를 선택해 주세요 🐇
 						</Typography>
 					</Box>
 

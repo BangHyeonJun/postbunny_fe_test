@@ -10,6 +10,7 @@ import {
 	CarrotManager,
 	CloudManager,
 	Position,
+	Background,
 } from "@/atoms/Canvas";
 import useCanvasPosition from "@/hooks/useCanvasPosition";
 import useFullSize from "@/hooks/useFullSize";
@@ -34,6 +35,11 @@ function MainCanvas() {
 		screenWidth: width,
 		screenHeight: height,
 	});
+
+	const bg = new Background({
+		screenWidth: width,
+		screenHeight: height,
+	});
 	let pressFlag = false;
 	let pressX = 0;
 	let pressType = 0; // 0 : 왼쪽, 1 : 오른쪽, 2
@@ -44,33 +50,33 @@ function MainCanvas() {
 		ctx.clearRect(0, 0, width, height);
 		ctx.beginPath();
 
-		drawBackGround(ctx);
-
 		ctx.fillRect(posX, 300, 50, 50);
 
 		if (pressFlag === true) {
 			if (getPositionType(width, curX) === "LEFT") {
-				posX -= 4;
-				bunny.moveLeft(ctx);
-			} else if (getPositionType(width, curX) === "RIGHT") {
 				posX += 4;
-				bunny.moveRight(ctx);
+			} else if (getPositionType(width, curX) === "RIGHT") {
+				posX -= 4;
 			}
 		} else {
-			bunny.stay(ctx);
+			// bunny.stay(ctx);
 		}
 
+		bg.draw(ctx, posX);
+		bunny.moveLeft(ctx);
+
 		// bunny.draw(ctx, pressType, 200, 200, Math.abs(Math.floor(x / 2 / 20) % 8));
-		cloudManager.animate(ctx);
-		carrotManager.draw(ctx, posX);
+		// cloudManager.animate(ctx);
+		// carrotManager.draw(ctx, posX);
+		// drawBackGround(ctx, posX);
 	};
 
-	const drawBackGround = (ctx: CanvasRenderingContext2D) => {
-		drawSkyBackGround(ctx, 0, 0, width, height * 0.25);
-		drawCarrotBackGround(ctx, 0, height * 0.25, width, height * 0.13, true);
-		drawCarrotBackGround(ctx, 0, height * 0.63, width, height * 0.13, true);
-		drawLoadBackGround(ctx, 0, height * 0.38, width, height * 0.25);
-		drawBasementBackGround(ctx, 0, height * 0.76, width, height * 0.24);
+	const drawBackGround = (ctx: CanvasRenderingContext2D, posX: number) => {
+		// drawSkyBackGround(ctx, 0, 0, width, height * 0.25);
+		// drawCarrotBackGround(ctx, 0, height * 0.25, width, height * 0.13, true);
+		// drawCarrotBackGround(ctx, 0, height * 0.63, width, height * 0.13, true);
+		// drawLoadBackGround(ctx, 0, height * 0.38, width, height * 0.25);
+		// drawBasementBackGround(ctx, 0, height * 0.76, width, height * 0.24);
 	};
 
 	const handlePressStartCanvas = (

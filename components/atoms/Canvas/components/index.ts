@@ -8,3 +8,4 @@ export { Bunny } from "./Bunny";
 export { Carrot } from "./Carrot";
 export { CarrotManager } from "./CarrotManager";
 export { Position } from "./Position";
+export { Background } from "./Background";

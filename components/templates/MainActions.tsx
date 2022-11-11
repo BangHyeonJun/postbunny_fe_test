@@ -14,7 +14,7 @@ const MUIButton = styled(Button)(({ theme }) => ({
 }));
 
 interface MainActionsProps {
-	onClickShare: () => {};
+	onClickShare: () => void;
 }
 
 function MainActions({ onClickShare }: MainActionsProps) {

@@ -41,16 +41,38 @@ function MainActions({ onClickShare }: MainActionsProps) {
 
 	return (
 		<>
-			<div className={cx("top")}>
+			<Box
+				sx={{
+					position: "absolute",
+					width: "calc(100% - 40px)",
+					display: "flex",
+					justifyContent: "space-between",
+					top: 0,
+					left: 0,
+					margin: "20px",
+				}}
+			>
 				<Box
 					sx={{
 						borderRadius: "6px",
 						backgroundColor: "#ffffff",
-						padding: "10px 20px",
+						padding: {
+							xs: "8px 16px",
+							fold: "10px 20px",
+						},
 						boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
 					}}
 				>
-					<Typography variant="h4" component="span">
+					<Typography
+						variant="h4"
+						component="span"
+						sx={{
+							fontSize: {
+								xs: "14px",
+								fold: "16px",
+							},
+						}}
+					>
 						방현준
 					</Typography>
 				</Box>
@@ -59,20 +81,42 @@ function MainActions({ onClickShare }: MainActionsProps) {
 						display: "flex",
 						alignItems: "center",
 						gap: 0.5,
-						marginRight: "10px",
 					}}
 				>
-					<Image
-						src={carrotColorIco}
-						width={30}
-						height={30}
-						alt={"받은 당근 갯수"}
-					/>
-					<Typography variant="h4" component="span">
+					<Box
+						sx={{
+							marginRight: "10px",
+							width: {
+								xs: "26px",
+								fold: "30px",
+							},
+							height: {
+								xs: "26px",
+								fold: "30px",
+							},
+						}}
+					>
+						<Image
+							src={carrotColorIco}
+							width={30}
+							height={30}
+							alt={"받은 당근 갯수"}
+						/>
+					</Box>
+					<Typography
+						variant="h4"
+						component="span"
+						sx={{
+							fontSize: {
+								xs: "14px",
+								fold: "16px",
+							},
+						}}
+					>
 						300
 					</Typography>
 				</Box>
-			</div>
+			</Box>
 
 			<Container
 				maxWidth={"xl"}
@@ -82,18 +126,18 @@ function MainActions({ onClickShare }: MainActionsProps) {
 					bottom: 0,
 					left: 0,
 					margin: "20px",
-					padding: 0,
+					p: "0px !important",
 					display: "flex",
 					justifyContent: "center",
 					alignItems: "center",
 				}}
 			>
 				<Container
-					maxWidth={"sm"}
+					maxWidth={"md"}
 					sx={{
 						display: "grid",
-						padding: 0,
 						gap: 1,
+						p: "0px !important",
 						gridTemplateRows: {
 							xs: `50px 50px`,
 							fold: `60px`,

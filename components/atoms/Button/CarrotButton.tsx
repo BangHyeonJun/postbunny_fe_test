@@ -38,11 +38,19 @@ function CarrotButton({ width, height, onClick }: ShareButtonProps) {
 			sx={{
 				width: width || "100%",
 				height: height || "100%",
-				fontFamily: "Noto Sans KR",
 			}}
 			onClick={handleClickButton}
 		>
-			<Typography variant="h2" component="span">
+			<Typography
+				variant="h2"
+				component="span"
+				sx={{
+					fontSize: {
+						xs: "14px",
+						fold: "16px",
+					},
+				}}
+			>
 				당근 보내기
 			</Typography>
 		</Button>

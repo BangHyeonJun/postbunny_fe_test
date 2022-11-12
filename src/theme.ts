@@ -45,6 +45,13 @@ const theme = createTheme({
 			fontSize: 16,
 			letterSpacing: "0.02em",
 		},
+		h3: {
+			fontFamily: "Noto Sans KR",
+			fontStyle: "normal",
+			fontWeight: 700,
+			fontSize: 14,
+			letterSpacing: "0.02em",
+		},
 		h4: {
 			fontFamily: "Noto Sans KR",
 			fontStyle: "normal",

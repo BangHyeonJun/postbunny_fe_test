@@ -1,18 +1,4 @@
-import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
-import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
-import {
-	LinearProgress as MUILinearProgress,
-	LinearProgressProps,
-	linearProgressClasses,
-	styled,
-} from "@mui/material";
-import Container from "@mui/material/Container";
-import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 
 import BeigeEggImg from "@/images/egg/beige.webp";
 import BlackEggImg from "@/images/egg/black.webp";
@@ -23,26 +9,19 @@ import WhiteEggImg from "@/images/egg/white.webp";
 
 import classNames from "classnames/bind";
 import styles from "@/styles/post/bunny.module.scss";
-import Appbar from "@/atoms/Appbar/Appbar";
-import { ButtonBase, Grid, Paper } from "@mui/material";
+import { ButtonBase, Grid, Paper, Container } from "@mui/material";
 import { useState } from "react";
 import Image from "next/image";
 import CheckIcon from "@mui/icons-material/Check";
 import { useRouter } from "next/router";
+import { LinearProgress } from "@/atoms/Progress";
+import { Description } from "@/atoms/Description";
+import { BackButton, TextButton } from "@/atoms/Button";
+import Contents from "@/templates/post/bunny/Contents";
+import Status from "@/templates/post/bunny/Status";
+import Actions from "@/templates/post/bunny/Actions";
 
 const cx = classNames.bind(styles);
-
-const LinearProgress = styled(MUILinearProgress)(({ theme }) => ({
-	height: 12,
-	borderRadius: 30,
-	[`&.${linearProgressClasses.colorPrimary}`]: {
-		backgroundColor: "#E6E6E6",
-	},
-	[`& .${linearProgressClasses.bar}`]: {
-		borderRadius: 30,
-		backgroundColor: "#FF9416",
-	},
-}));
 
 type EggType =
 	| "BeigeEggImg"
@@ -51,47 +30,6 @@ type EggType =
 	| "LightBrownEggImg"
 	| "PinkEggImg"
 	| "WhiteEggImg";
-
-function LinearProgressWithLabel(
-	props: LinearProgressProps & { currstep: number; finishstep: number }
-) {
-	return (
-		<Box
-			sx={{
-				display: "flex",
-				justifyContent: "space-between",
-				alignItems: "center",
-				padding: "0px 10px",
-				gap: 1.25,
-				backgroundColor: "rgba(255, 255, 255, 0.9)",
-				boxShadow: `0px 4px 4px rgba(0, 0, 0, 0.25)`,
-				borderRadius: 30,
-			}}
-		>
-			<Box
-				sx={{
-					width: "100%",
-					p: "8px 0px",
-					alignSelf: "stretch",
-					display: "flex",
-					flexDirection: "column",
-					justifyContent: "center",
-				}}
-			>
-				<LinearProgress
-					variant="determinate"
-					{...props}
-					value={Math.ceil((props.currstep / props.finishstep) * 100)}
-				/>
-			</Box>
-			<Box>
-				<Typography variant="body2">{`${Math.ceil(
-					(props.currstep / props.finishstep) * 100
-				)}%`}</Typography>
-			</Box>
-		</Box>
-	);
-}
 
 interface EggDisplayProps {
 	type: EggType;
@@ -547,135 +485,36 @@ function Bunny() {
 	};
 
 	return (
-		<Box
-			className={cx("wrap")}
-			height={{
-				xs: "calc(100vh - 112px)",
-				sm: "calc(100vh - 120px)",
-				md: "calc(100vh - 128px)",
+		<Container
+			component={"main"}
+			sx={{
+				width: "100%",
+				height: "100vh",
+				position: "relative",
+				padding: "0px !important",
 			}}
 		>
-			<Appbar title="토끼 선택" onClickBackBtn={handleClickBackButton}></Appbar>
 			<Box
-				component={"main"}
-				mt={{
-					xs: 7,
-					sm: 8,
-					md: 8,
-				}}
-				mb={{
-					xs: 7,
-					sm: 7,
-					md: 8,
-				}}
-				pt={{
-					xs: 1.5,
-					sm: 2,
-					md: 2,
-				}}
-				pb={{
-					xs: 1.5,
-					sm: 2,
-					md: 2,
-				}}
-				sx={{}}
-			>
-				<Container maxWidth={"md"}>
-					<Box>
-						<LinearProgressWithLabel currstep={1} finishstep={3} />
-					</Box>
-
-					<Box
-						sx={{
-							padding: "10px 20px",
-							borderRadius: "6px",
-							backgroundColor: "rgba(255, 255, 255, 0.8)",
-							boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-							display: "flex",
-							alignItems: "center",
-							justifyContent: "center",
-						}}
-					>
-						<Typography variant="subtitle1" component="p">
-							편지를 전달할 토끼를 선택해 주세요 🐇
-						</Typography>
-					</Box>
-
-					<Box
-						sx={{
-							height: "40vh",
-							display: "flex",
-							alignItems: "center",
-							justifyContent: "center",
-						}}
-					>
-						<EggDisplay type={selectedColor} />
-					</Box>
-
-					<Box
-						pt={{
-							xs: 2,
-							sm: 3,
-							md: 2,
-						}}
-						pr={{
-							xs: 1,
-							sm: 1,
-							md: 2,
-						}}
-						pb={{
-							xs: 2,
-							sm: 3,
-							md: 2,
-						}}
-						pl={{
-							xs: 1,
-							sm: 1,
-							md: 2,
-						}}
-						sx={{
-							width: "100%",
-							borderRadius: 1,
-							backgroundColor: "rgba(255, 255, 255, 0.9)",
-						}}
-					>
-						<EggColorPicker
-							selectedColor={selectedColor}
-							onClickPicker={setSelectedColor}
-						/>
-					</Box>
-				</Container>
-			</Box>
-
-			<Box
-				height={{
-					xs: 56,
-					sm: 56,
-					md: 64,
-				}}
 				sx={{
-					position: "fixed",
-					bottom: 0,
+					width: "100%",
+					height: "100%",
+				}}
+			>
+				<Contents />
+			</Box>
+			<Box
+				sx={{
+					position: "absolute",
+					top: 0,
 					left: 0,
 					width: "100%",
+					height: "100%",
 				}}
 			>
-				<Button
-					fullWidth
-					variant="contained"
-					sx={{
-						borderRadius: 0,
-						height: "100%",
-						fontSize: 18,
-						fontWeight: "900",
-						letterSpacing: 8,
-					}}
-					onClick={handleClickNextStep}
-				>
-					다음
-				</Button>
+				<Status />
+				<Actions />
 			</Box>
-		</Box>
+		</Container>
 	);
 }
 

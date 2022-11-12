@@ -1,9 +1,12 @@
 import MainCanvas from "@/templates/MainCanvas";
 import type { NextPage } from "next";
+import classNames from "classnames/bind";
+import styles from "@/styles/index.module.scss";
 import MainActions from "@/templates/MainActions";
 import Head from "next/head";
+import { useEffect } from "react";
 import { useShareSns, ShareComponent } from "@/atoms/Share";
-import { Box } from "@mui/material";
+const cx = classNames.bind(styles);
 
 const Home: NextPage = () => {
 	const Share = useShareSns();
@@ -17,14 +20,7 @@ const Home: NextPage = () => {
 				/>
 			</Head>
 
-			<Box
-				component={"main"}
-				sx={{
-					width: "100%",
-					height: "100%",
-					position: "relative",
-				}}
-			>
+			<main className={cx("container")}>
 				<MainCanvas />
 				<MainActions onClickShare={Share.show} />
 
@@ -32,7 +28,7 @@ const Home: NextPage = () => {
 					isOpenShareSns={Share.isOpenShareSns}
 					onClose={Share.hide}
 				/>
-			</Box>
+			</main>
 		</>
 	);
 };

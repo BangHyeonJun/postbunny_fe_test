@@ -4,8 +4,8 @@ import backIco from "./assets/back.png";
 import { MouseEvent } from "react";
 
 interface ShareButtonProps {
-	width?: number | string | object;
-	height?: number | string | object;
+	width?: number | string;
+	height?: number | string;
 	onClick?: (e: MouseEvent) => void;
 }
 

@@ -22,7 +22,8 @@
 			"@/hooks/*": ["./hooks/*"],
 			"@/lib/*": ["./lib/*"],
 			"@/styles/*": ["./styles/*"],
-			"@/images/*": ["./public/images/*"]
+			"@/images/*": ["./public/images/*"],
+			"@/recoil/*": ["./recoil/*"]
 		}
 	},
 	"include": [

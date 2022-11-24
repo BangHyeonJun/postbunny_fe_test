@@ -1,70 +1,182 @@
 interface BunnyProps {
 	screenWidth: number;
 	screenHeight: number;
+
+	bunnyType: string;
 }
 
 export class Bunny {
 	private index: number = 0;
-	private SpriteBlob: HTMLImageElement | null = null;
 	private screenWidth = 0;
 	private screenHeight = 0;
+	private bunnyType = "";
+	private bunnyBlob: HTMLImageElement | null = null;
 
 	private keyframe = {
-		moveLeft: [
-			{ x: 0, y: 0, width: 500, height: 500, delay: 0 },
-			{ x: 500, y: 0, width: 500, height: 500, delay: 0 },
-			{ x: 1000, y: 0, width: 500, height: 500, delay: 0 },
-			{ x: 1500, y: 0, width: 500, height: 500, delay: 0 },
-			{ x: 2000, y: 0, width: 500, height: 500, delay: 0 },
-			{ x: 2500, y: 0, width: 500, height: 500, delay: 0 },
-			{ x: 3000, y: 0, width: 500, height: 500, delay: 0 },
-			{ x: 3500, y: 0, width: 500, height: 500, delay: 0 },
-			{ x: 4000, y: 0, width: 500, height: 500, delay: 0 },
-			{ x: 4500, y: 0, width: 500, height: 500, delay: 0 },
-			{ x: 5000, y: 0, width: 500, height: 500, delay: 0 },
-			{ x: 5500, y: 0, width: 500, height: 500, delay: 0 },
+		stay: [
+			{ type: "가만히 1", x: 0, y: 0, width: 231, height: 494, delay: 0 },
+			{ type: "가만히 2", x: 231, y: 0, width: 231, height: 494, delay: 0 },
+			{ type: "가만히 3", x: 462, y: 0, width: 231, height: 494, delay: 0 },
+			{ type: "웃는가만히 1", x: 693, y: 0, width: 231, height: 494, delay: 0 },
+			{ type: "웃는가만히 2", x: 924, y: 0, width: 231, height: 494, delay: 0 },
+			{
+				type: "웃는가만히 3",
+				x: 1155,
+				y: 0,
+				width: 231,
+				height: 494,
+				delay: 0,
+			},
+		],
+		dance: [
+			{ type: "춤 1", x: 0, y: 494, width: 400, height: 500, delay: 0 },
+			{ type: "춤 2", x: 400, y: 494, width: 400, height: 500, delay: 0 },
+			{ type: "춤 3", x: 800, y: 494, width: 400, height: 500, delay: 0 },
+			{ type: "춤 4", x: 1200, y: 494, width: 400, height: 500, delay: 0 },
+			{ type: "웃는춤 1", x: 0, y: 994, width: 400, height: 500, delay: 0 },
+			{ type: "웃는춤 2", x: 400, y: 994, width: 400, height: 500, delay: 0 },
+			{ type: "웃는춤 3", x: 800, y: 994, width: 400, height: 500, delay: 0 },
+			{ type: "웃는춤 4", x: 1200, y: 994, width: 400, height: 500, delay: 0 },
+		],
+		hello: [
+			{ type: "안녕 1", x: 0, y: 1494, width: 227, height: 459, delay: 0 },
+			{ type: "안녕 2", x: 227, y: 1494, width: 227, height: 459, delay: 0 },
+			{ type: "안녕 3", x: 454, y: 1494, width: 227, height: 459, delay: 0 },
+			{ type: "안녕 4", x: 681, y: 1494, width: 227, height: 459, delay: 0 },
+			{ type: "안녕 5", x: 908, y: 1494, width: 227, height: 459, delay: 0 },
+			{ type: "안녕 6", x: 681, y: 1494, width: 227, height: 459, delay: 0 },
+			{ type: "안녕 7", x: 454, y: 1494, width: 227, height: 459, delay: 0 },
+			{ type: "안녕 8", x: 227, y: 1494, width: 227, height: 459, delay: 0 },
+			{ type: "웃는안녕 1", x: 0, y: 1953, width: 227, height: 459, delay: 0 },
+			{
+				type: "웃는안녕 2",
+				x: 227,
+				y: 1953,
+				width: 227,
+				height: 459,
+				delay: 0,
+			},
+			{
+				type: "웃는안녕 3",
+				x: 454,
+				y: 1953,
+				width: 227,
+				height: 459,
+				delay: 0,
+			},
+			{
+				type: "웃는안녕 4",
+				x: 681,
+				y: 1953,
+				width: 227,
+				height: 459,
+				delay: 0,
+			},
+			{
+				type: "웃는안녕 5",
+				x: 908,
+				y: 1953,
+				width: 227,
+				height: 459,
+				delay: 0,
+			},
+			{
+				type: "웃는안녕 6",
+				x: 681,
+				y: 1953,
+				width: 227,
+				height: 459,
+				delay: 0,
+			},
+			{
+				type: "웃는안녕 7",
+				x: 454,
+				y: 1953,
+				width: 227,
+				height: 459,
+				delay: 0,
+			},
+			{
+				type: "웃는안녕 8",
+				x: 227,
+				y: 1953,
+				width: 227,
+				height: 459,
+				delay: 0,
+			},
 		],
 		moveRight: [
-			{ x: 0, y: 406, width: 110, height: 200, delay: 0 },
-			{ x: 110, y: 406, width: 110, height: 200, delay: 0 },
-			{ x: 220, y: 406, width: 110, height: 200, delay: 0 },
-			{ x: 330, y: 406, width: 110, height: 200, delay: 0 },
-			{ x: 440, y: 406, width: 110, height: 200, delay: 0 },
-			{ x: 550, y: 406, width: 110, height: 200, delay: 0 },
-			{ x: 660, y: 406, width: 110, height: 200, delay: 0 },
-			{ x: 770, y: 406, width: 110, height: 200, delay: 0 },
+			{ type: "오른쪽 1", x: 0, y: 2412, width: 472, height: 503, delay: 0 },
+			{ type: "오른쪽 2", x: 472, y: 2412, width: 472, height: 503, delay: 0 },
+			{ type: "오른쪽 3", x: 944, y: 2412, width: 472, height: 503, delay: 0 },
+			{ type: "오른쪽 4", x: 1416, y: 2412, width: 472, height: 503, delay: 0 },
+			{ type: "오른쪽 5", x: 1888, y: 2412, width: 472, height: 503, delay: 0 },
+			{ type: "오른쪽 6", x: 2360, y: 2412, width: 472, height: 503, delay: 0 },
+			{ type: "오른쪽 7", x: 0, y: 2915, width: 472, height: 503, delay: 0 },
+			{ type: "오른쪽 8", x: 472, y: 2915, width: 472, height: 503, delay: 0 },
+			{ type: "오른쪽 9", x: 944, y: 2915, width: 472, height: 503, delay: 0 },
+			{
+				type: "오른쪽 10",
+				x: 1416,
+				y: 2915,
+				width: 472,
+				height: 503,
+				delay: 0,
+			},
+			{
+				type: "오른쪽 11",
+				x: 1888,
+				y: 2915,
+				width: 472,
+				height: 503,
+				delay: 0,
+			},
+			{
+				type: "오른쪽 12",
+				x: 2360,
+				y: 2915,
+				width: 472,
+				height: 503,
+				delay: 0,
+			},
+			{ type: "오른쪽 13", x: 0, y: 3418, width: 472, height: 503, delay: 0 },
+			{ type: "오른쪽 14", x: 472, y: 3418, width: 472, height: 503, delay: 0 },
+			{ type: "오른쪽 15", x: 944, y: 3418, width: 472, height: 503, delay: 0 },
+			{
+				type: "오른쪽 16",
+				x: 1416,
+				y: 3418,
+				width: 472,
+				height: 503,
+				delay: 0,
+			},
+			{
+				type: "오른쪽 17",
+				x: 1888,
+				y: 3418,
+				width: 472,
+				height: 503,
+				delay: 0,
+			},
 		],
-		egg: [
-			{ x: 116, y: 0, width: 116, height: 206, delay: 0 },
-			{ x: 116, y: 0, width: 116, height: 206, delay: 0 },
-			{ x: 116, y: 0, width: 116, height: 206, delay: 0 },
-			{ x: 0, y: 0, width: 116, height: 206, delay: 0 },
-		],
-		eggFoot: [
-			{ x: 348, y: 0, width: 116, height: 206, delay: 0 },
-			{ x: 232, y: 0, width: 116, height: 206, delay: 0 },
-		],
-		stayBunny: [
-			{ x: 0, y: 207, width: 110, height: 200, delay: 0 },
-			{ x: 110, y: 207, width: 110, height: 200, delay: 0 },
-		],
-		helloBunny: [
-			{ x: 220, y: 207, width: 110, height: 200, delay: 0 },
-			{ x: 330, y: 207, width: 110, height: 200, delay: 0 },
-			{ x: 440, y: 207, width: 110, height: 200, delay: 0 },
-			{ x: 330, y: 207, width: 110, height: 200, delay: 0 },
-			{ x: 220, y: 207, width: 110, height: 200, delay: 0 },
-			{ x: 330, y: 207, width: 110, height: 200, delay: 0 },
-			{ x: 440, y: 207, width: 110, height: 200, delay: 0 },
-			{ x: 550, y: 207, width: 110, height: 200, delay: 0 },
-			{ x: 220, y: 207, width: 110, height: 200, delay: 0 },
-			{ x: 330, y: 207, width: 110, height: 200, delay: 0 },
-			{ x: 440, y: 207, width: 110, height: 200, delay: 0 },
-			{ x: 330, y: 207, width: 110, height: 200, delay: 0 },
-		],
-		waterBunny: [
-			{ x: 0, y: 806, width: 200, height: 200, delay: 0 },
-			{ x: 200, y: 806, width: 200, height: 200, delay: 0 },
+		moveLeft: [
+			{ type: "왼쪽 1", x: 0, y: 3921, width: 472, height: 503, delay: 0 },
+			{ type: "왼쪽 2", x: 472, y: 3921, width: 472, height: 503, delay: 0 },
+			{ type: "왼쪽 3", x: 944, y: 3921, width: 472, height: 503, delay: 0 },
+			{ type: "왼쪽 4", x: 1416, y: 3921, width: 472, height: 503, delay: 0 },
+			{ type: "왼쪽 5", x: 1888, y: 3921, width: 472, height: 503, delay: 0 },
+			{ type: "왼쪽 6", x: 2360, y: 3921, width: 472, height: 503, delay: 0 },
+			{ type: "왼쪽 7", x: 0, y: 4424, width: 472, height: 503, delay: 0 },
+			{ type: "왼쪽 8", x: 472, y: 4424, width: 472, height: 503, delay: 0 },
+			{ type: "왼쪽 9", x: 944, y: 4424, width: 472, height: 503, delay: 0 },
+			{ type: "왼쪽 10", x: 1416, y: 4424, width: 472, height: 503, delay: 0 },
+			{ type: "왼쪽 11", x: 1888, y: 4424, width: 472, height: 503, delay: 0 },
+			{ type: "왼쪽 12", x: 2360, y: 4424, width: 472, height: 503, delay: 0 },
+			{ type: "왼쪽 13", x: 0, y: 4927, width: 472, height: 503, delay: 0 },
+			{ type: "왼쪽 14", x: 472, y: 4927, width: 472, height: 503, delay: 0 },
+			{ type: "왼쪽 15", x: 944, y: 4927, width: 472, height: 503, delay: 0 },
+			{ type: "왼쪽 16", x: 1416, y: 4927, width: 472, height: 503, delay: 0 },
+			{ type: "왼쪽 17", x: 1888, y: 4927, width: 472, height: 503, delay: 0 },
 		],
 	};
 
@@ -72,10 +184,37 @@ export class Bunny {
 		this.screenWidth = initialProps.screenWidth;
 		this.screenHeight = initialProps.screenHeight;
 
+		this.bunnyType = initialProps.bunnyType;
+
 		this.preloadImg();
 	}
-	private getCircleY(radians: number, radius: number) {
-		return Math.sin(radians) * radius;
+
+	private getBunnyImagePath(type: any) {
+		let result = "";
+
+		switch (type) {
+			case "brown":
+				result = `${location.origin}/brownbunny.png`;
+				break;
+			case "black":
+				result = `${location.origin}/blackbunny.png`;
+				break;
+			case "white":
+				result = `${location.origin}/whitebunny.png`;
+				break;
+			case "pink":
+				result = `${location.origin}/pinkbunny.png`;
+				break;
+			case "gray":
+				result = `${location.origin}/graybunny.png`;
+				break;
+			case "beige":
+				result = `${location.origin}/beigebunny.png`;
+				break;
+		}
+		console.log(type);
+
+		return result;
 	}
 
 	private preloadImg() {
@@ -87,45 +226,80 @@ export class Bunny {
 				return;
 			}
 
+			const imgPath = this.getBunnyImagePath(this.bunnyType);
+
 			const img = new Image();
-			img.src = `${location.origin}/왼쪽토끼.png`;
+			img.src = imgPath;
 			img.onload = () => {
-				this.SpriteBlob = img;
+				this.bunnyBlob = img;
 			};
 		};
 
 		setSpriteBlob();
 	}
 
-	egg(ctx: CanvasRenderingContext2D) {
-		if (this.SpriteBlob !== null) {
+	draw(
+		ctx: CanvasRenderingContext2D,
+		type: "STAY" | "DANCE" | "HELLO" | "LEFT" | "RIGHT"
+	) {
+		if (type === "STAY") {
+			this.stay(ctx);
+		} else if (type === "DANCE") {
+			this.dance(ctx);
+		} else if (type === "HELLO") {
+			this.hello(ctx);
+		} else if (type === "LEFT") {
+			this.moveLeft(ctx);
+		} else if (type === "RIGHT") {
+			this.moveRight(ctx);
+		}
+	}
+
+	private dance(ctx: CanvasRenderingContext2D) {
+		if (this.bunnyBlob !== null) {
 			ctx.save();
 
-			const targetKeyframe = this.keyframe.egg;
-			const size = Math.floor(this.index / 60) % targetKeyframe.length;
+			const img = this.bunnyBlob;
+			// 가속기
+			const accelerate = 50;
 
-			const test = this.getCircleY(this.index / 60, 5);
+			const targetKeyframe = this.keyframe.dance;
+			const size = Math.floor(this.index / accelerate) % targetKeyframe.length;
 
-			ctx.translate(
-				this.screenWidth / 2 -
-					(targetKeyframe[size].width * (this.screenHeight / 915)) / 2,
-				this.screenHeight * 0.35
-			);
+			const imgX = targetKeyframe[size].x;
+			const imgY = targetKeyframe[size].y;
 
-			ctx.rotate((Math.PI / 180) * test);
+			const imgWidth = targetKeyframe[size].width;
+			const imgHeight = targetKeyframe[size].height;
 
-			ctx.translate(test * 2.8, test * -0.85);
+			// 사이즈 비율
+			let ratio = 1;
+
+			if (this.screenWidth <= 500) {
+				ratio = (this.screenWidth / imgWidth) * 0.55;
+			} else {
+				ratio = (this.screenHeight / imgHeight) * 0.55;
+			}
+
+			const centerScreenX = this.screenWidth / 2;
+			const centerScreenY = Math.ceil(this.screenHeight * 0.63);
+
+			let drawWidth = imgWidth * ratio;
+			let drawHeight = imgHeight * ratio;
+
+			const drawX = centerScreenX - drawWidth / 2;
+			const drawY = centerScreenY - drawHeight / 2;
 
 			ctx.drawImage(
-				this.SpriteBlob,
-				targetKeyframe[size].x,
-				targetKeyframe[size].y,
-				targetKeyframe[size].width,
-				targetKeyframe[size].height,
-				0,
-				0,
-				targetKeyframe[size].width * (this.screenHeight / 915),
-				targetKeyframe[size].height * (this.screenHeight / 915)
+				img,
+				imgX,
+				imgY,
+				imgWidth,
+				imgHeight,
+				drawX,
+				drawY,
+				drawWidth,
+				drawHeight
 			);
 
 			this.index = this.index + 1;
@@ -134,61 +308,51 @@ export class Bunny {
 		}
 	}
 
-	// draw(
-	// 	ctx: CanvasRenderingContext2D,
-	// 	type: number,
-	// 	x: number,
-	// 	y: number,
-	// 	index: number
-	// ) {
-	// 	if (this.eggImgBlog !== null) {
-	// 		ctx.save();
-	// 		// ctx.drawImage(this.eggImgBlog, x, y);
-	// 		// ctx.rotate((Math.PI / 180) * 25);
-
-	// 		// 740 968
-
-	// 		// ctx.translate(x, y);
-	// 		// ctx.fillRect(-50, -50, 100, 100);
-	// 		// ctx.rotate((Math.PI / 180) * index);
-	// 		// ctx.drawImage(this.eggImgBlog, 162.19 * -0.5, 214.19 * -0.5);
-
-	// 		ctx.drawImage(
-	// 			this.eggImgBlog,
-	// 			89 * index,
-	// 			186 * type,
-	// 			89,
-	// 			186,
-	// 			140,
-	// 			350,
-	// 			66,
-	// 			138
-	// 		);
-
-	// 		ctx.restore();
-	// 	}
-	// }
-
-	stay(ctx: CanvasRenderingContext2D) {
-		if (this.SpriteBlob !== null) {
+	private hello(ctx: CanvasRenderingContext2D) {
+		if (this.bunnyBlob !== null) {
 			ctx.save();
 
-			const targetKeyframe = this.keyframe.stayBunny;
-			const size = Math.floor(this.index / 60) % targetKeyframe.length;
+			const img = this.bunnyBlob;
+			// 가속기
+			const accelerate = 10;
 
-			const test = this.getCircleY(this.index / 60, 5);
+			const targetKeyframe = this.keyframe.hello;
+			const size = Math.floor(this.index / accelerate) % targetKeyframe.length;
+
+			const imgX = targetKeyframe[size].x;
+			const imgY = targetKeyframe[size].y;
+
+			const imgWidth = targetKeyframe[size].width;
+			const imgHeight = targetKeyframe[size].height;
+
+			// 사이즈 비율
+			let ratio = 1;
+
+			if (this.screenWidth <= 500) {
+				ratio = (this.screenWidth / imgWidth) * 0.55;
+			} else {
+				ratio = (this.screenHeight / imgHeight) * 0.55;
+			}
+
+			const centerScreenX = this.screenWidth / 2;
+			const centerScreenY = Math.ceil(this.screenHeight * 0.63);
+
+			let drawWidth = imgWidth * ratio;
+			let drawHeight = imgHeight * ratio;
+
+			const drawX = centerScreenX - drawWidth / 2;
+			const drawY = centerScreenY - drawHeight / 2;
 
 			ctx.drawImage(
-				this.SpriteBlob,
-				targetKeyframe[size].x,
-				targetKeyframe[size].y,
-				targetKeyframe[size].width,
-				targetKeyframe[size].height,
-				this.screenWidth / 2 -
-					(targetKeyframe[size].width * (this.screenHeight / 915)) / 2,
-				this.screenHeight * 0.35,
-				targetKeyframe[size].width * (this.screenHeight / 915),
-				targetKeyframe[size].height * (this.screenHeight / 915)
+				img,
+				imgX,
+				imgY,
+				imgWidth,
+				imgHeight,
+				drawX,
+				drawY,
+				drawWidth,
+				drawHeight
 			);
 
 			this.index = this.index + 1;
@@ -197,26 +361,51 @@ export class Bunny {
 		}
 	}
 
-	hello(ctx: CanvasRenderingContext2D) {
-		if (this.SpriteBlob !== null) {
+	private stay(ctx: CanvasRenderingContext2D) {
+		if (this.bunnyBlob !== null) {
 			ctx.save();
 
-			const targetKeyframe = this.keyframe.helloBunny;
-			const size = Math.floor(this.index / 10) % targetKeyframe.length;
+			const img = this.bunnyBlob;
+			// 가속기
+			const accelerate = 15;
 
-			const test = this.getCircleY(this.index / 60, 5);
+			const targetKeyframe = this.keyframe.stay;
+			const size = Math.floor(this.index / accelerate) % targetKeyframe.length;
+
+			const imgX = targetKeyframe[size].x;
+			const imgY = targetKeyframe[size].y;
+
+			const imgWidth = targetKeyframe[size].width;
+			const imgHeight = targetKeyframe[size].height;
+
+			// 사이즈 비율
+			let ratio = 1;
+
+			if (this.screenWidth <= 500) {
+				ratio = (this.screenWidth / imgWidth) * 0.55;
+			} else {
+				ratio = (this.screenHeight / imgHeight) * 0.55;
+			}
+
+			const centerScreenX = this.screenWidth / 2;
+			const centerScreenY = Math.ceil(this.screenHeight * 0.63);
+
+			let drawWidth = imgWidth * ratio;
+			let drawHeight = imgHeight * ratio;
+
+			const drawX = centerScreenX - drawWidth / 2;
+			const drawY = centerScreenY - drawHeight / 2;
 
 			ctx.drawImage(
-				this.SpriteBlob,
-				targetKeyframe[size].x,
-				targetKeyframe[size].y,
-				targetKeyframe[size].width,
-				targetKeyframe[size].height,
-				this.screenWidth / 2 -
-					(targetKeyframe[size].width * (this.screenHeight / 915)) / 2,
-				this.screenHeight * 0.35,
-				targetKeyframe[size].width * (this.screenHeight / 915),
-				targetKeyframe[size].height * (this.screenHeight / 915)
+				img,
+				imgX,
+				imgY,
+				imgWidth,
+				imgHeight,
+				drawX,
+				drawY,
+				drawWidth,
+				drawHeight
 			);
 
 			this.index = this.index + 1;
@@ -225,24 +414,52 @@ export class Bunny {
 		}
 	}
 
-	moveLeft(ctx: CanvasRenderingContext2D) {
-		if (this.SpriteBlob !== null) {
+	private moveLeft(ctx: CanvasRenderingContext2D) {
+		if (this.bunnyBlob !== null) {
 			ctx.save();
+
+			const img = this.bunnyBlob;
+
+			// 가속기
+			const accelerate = 4;
 
 			const targetKeyframe = this.keyframe.moveLeft;
-			const size = Math.floor(this.index / 6) % targetKeyframe.length;
+			const size = Math.floor(this.index / accelerate) % targetKeyframe.length;
+
+			const imgX = targetKeyframe[size].x;
+			const imgY = targetKeyframe[size].y;
+
+			const imgWidth = targetKeyframe[size].width;
+			const imgHeight = targetKeyframe[size].height;
+
+			// 사이즈 비율
+			let ratio = 1;
+
+			if (this.screenWidth <= 500) {
+				ratio = (this.screenWidth / imgWidth) * 0.55;
+			} else {
+				ratio = (this.screenHeight / imgHeight) * 0.55;
+			}
+
+			const centerScreenX = this.screenWidth / 2;
+			const centerScreenY = Math.ceil(this.screenHeight * 0.63);
+
+			let drawWidth = imgWidth * ratio;
+			let drawHeight = imgHeight * ratio;
+
+			const drawX = centerScreenX - drawWidth / 2;
+			const drawY = centerScreenY - drawHeight / 2;
 
 			ctx.drawImage(
-				this.SpriteBlob,
-				targetKeyframe[size].x,
-				targetKeyframe[size].y,
-				targetKeyframe[size].width,
-				targetKeyframe[size].height,
-				this.screenWidth / 2 -
-					(targetKeyframe[size].width * (this.screenHeight / 915)) / 2,
-				this.screenHeight * 0.35,
-				targetKeyframe[size].width * (this.screenHeight / 915),
-				targetKeyframe[size].height * (this.screenHeight / 915)
+				img,
+				imgX,
+				imgY,
+				imgWidth,
+				imgHeight,
+				drawX,
+				drawY,
+				drawWidth,
+				drawHeight
 			);
 
 			this.index = this.index + 1;
@@ -251,24 +468,51 @@ export class Bunny {
 		}
 	}
 
-	moveRight(ctx: CanvasRenderingContext2D) {
-		if (this.SpriteBlob !== null) {
+	private moveRight(ctx: CanvasRenderingContext2D) {
+		if (this.bunnyBlob !== null) {
 			ctx.save();
 
+			const img = this.bunnyBlob;
+			// 가속기
+			const accelerate = 4;
+
 			const targetKeyframe = this.keyframe.moveRight;
-			const size = Math.floor(this.index / 8) % targetKeyframe.length;
+			const size = Math.floor(this.index / accelerate) % targetKeyframe.length;
+
+			const imgX = targetKeyframe[size].x;
+			const imgY = targetKeyframe[size].y;
+
+			const imgWidth = targetKeyframe[size].width;
+			const imgHeight = targetKeyframe[size].height;
+
+			// 사이즈 비율
+			let ratio = 1;
+
+			if (this.screenWidth <= 500) {
+				ratio = (this.screenWidth / imgWidth) * 0.55;
+			} else {
+				ratio = (this.screenHeight / imgHeight) * 0.55;
+			}
+
+			const centerScreenX = this.screenWidth / 2;
+			const centerScreenY = Math.ceil(this.screenHeight * 0.63);
+
+			let drawWidth = imgWidth * ratio;
+			let drawHeight = imgHeight * ratio;
+
+			const drawX = centerScreenX - drawWidth / 2;
+			const drawY = centerScreenY - drawHeight / 2;
 
 			ctx.drawImage(
-				this.SpriteBlob,
-				targetKeyframe[size].x,
-				targetKeyframe[size].y,
-				targetKeyframe[size].width,
-				targetKeyframe[size].height
-				// this.screenWidth / 2 -
-				// 	(targetKeyframe[size].width * (this.screenHeight / 915)) / 2,
-				// this.screenHeight * 0.35,
-				// targetKeyframe[size].width * (this.screenHeight / 915),
-				// targetKeyframe[size].height * (this.screenHeight / 915)
+				img,
+				imgX,
+				imgY,
+				imgWidth,
+				imgHeight,
+				drawX,
+				drawY,
+				drawWidth,
+				drawHeight
 			);
 
 			this.index = this.index + 1;

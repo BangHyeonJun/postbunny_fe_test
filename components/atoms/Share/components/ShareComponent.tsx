@@ -1,10 +1,11 @@
 import { Box, Container, Drawer, Grid, Typography } from "@mui/material";
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import KakaoImg from "../assets/카카오톡.png";
 import FacebookImg from "../assets/페이스북.png";
 import TwitterImg from "../assets/트위터.png";
 import URLImg from "../assets/URL.png";
 import ShareItem, { ShareItemType } from "./ShareItem";
+import { useRouter } from "next/router";
 
 const ShareItemData = [
 	{

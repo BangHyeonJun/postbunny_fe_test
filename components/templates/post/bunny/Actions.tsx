@@ -1,8 +1,11 @@
 import { BackButton, TextButton } from "@/atoms/Button";
+import { postState } from "@/recoil/post";
 import { Container, Grid } from "@mui/material";
 import { useRouter } from "next/router";
+import { useRecoilState } from "recoil";
 
 function Actions() {
+	const [post, setPost] = useRecoilState(postState);
 	const router = useRouter();
 
 	const handleClickBackButton = () => {
@@ -10,6 +13,12 @@ function Actions() {
 	};
 
 	const handleClickNextStep = () => {
+		// TODO : 테스트 이므로 추후 삭제 필요
+		setPost((old) => ({
+			...old,
+			isBunnyCompleted: true,
+		}));
+
 		router.push("/post/carrot");
 	};
 
@@ -17,16 +26,11 @@ function Actions() {
 		<Container
 			maxWidth={"xl"}
 			sx={{
-				position: "absolute",
-				width: `calc(100% - 40px)`,
-				bottom: 0,
-				left: 0,
-				margin: "20px",
-				padding: 0,
+				width: `100%`,
 				display: "flex",
 				justifyContent: "center",
 				alignItems: "center",
-				p: "0px !important",
+				padding: "20px 0px 0px 0px !important",
 			}}
 		>
 			<Grid

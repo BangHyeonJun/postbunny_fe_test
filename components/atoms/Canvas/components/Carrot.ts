@@ -27,11 +27,8 @@ export class Carrot {
 			{ x: 200, y: 806, width: 200, height: 200, delay: 0 },
 		],
 		carrot: [
-			{ x: 0, y: 1006, width: 97, height: 98, delay: 0 },
-			{ x: 0, y: 1006, width: 97, height: 98, delay: 0 },
-			{ x: 0, y: 1006, width: 97, height: 98, delay: 0 },
-			{ x: 0, y: 1006, width: 97, height: 98, delay: 0 },
-			{ x: 97, y: 1006, width: 97, height: 98, delay: 0 },
+			{ x: 0, y: 0, width: 457, height: 640, delay: 0 },
+			{ x: 457, y: 0, width: 457, height: 640, delay: 0 },
 		],
 		carrot2: [
 			{ x: 194, y: 1006, width: 97, height: 98, delay: 0 },
@@ -105,8 +102,8 @@ export class Carrot {
 		moveX: number
 	) {
 		this.drawCarrot(ctx, image, index, this.px - moveX, this.py);
-		this.drawBunny(ctx, image, index, this.px - moveX, this.py);
-		this.drawTitle(ctx, index, this.nickname, this.px - moveX, this.py);
+		// this.drawBunny(ctx, image, index, this.px - moveX, this.py);
+		// this.drawTitle(ctx, index, this.nickname, this.px - moveX, this.py);
 	}
 
 	private drawCarrot(
@@ -140,25 +137,42 @@ export class Carrot {
 				carrotKeyframe = this.keyframe.carrot6;
 				break;
 		}
-		const size = Math.floor(index / 30) % carrotKeyframe.length;
+		const size = Math.floor(index / 40) % carrotKeyframe.length;
 
-		const width = carrotKeyframe[size].width * (this.screenHeight / 1464);
-		const height = carrotKeyframe[size].height * (this.screenHeight / 1464);
+		const imgX = carrotKeyframe[size].x;
+		const imgY = carrotKeyframe[size].y;
 
-		const px = x;
-		const py = y - height / 2;
+		const imgWidth = carrotKeyframe[size].width;
+		const imgHeight = carrotKeyframe[size].height;
+
+		// 사이즈 비율
+		let ratio = 1;
+
+		if (this.screenWidth <= 500) {
+			ratio = (this.screenWidth / imgWidth) * 0.18;
+		} else {
+			ratio = (this.screenHeight / imgHeight) * 0.18;
+		}
+
+		let drawWidth = imgWidth * ratio;
+		let drawHeight = imgHeight * ratio;
+
+		const drawX =
+			(x * Math.ceil((this.screenWidth / 3840) * 0.8 * 10)) %
+			Math.floor(3840 * (this.screenHeight / 1080));
+		const drawY = this.screenHeight * 0.6;
 
 		ctx.beginPath();
 		ctx.drawImage(
 			image,
-			carrotKeyframe[size].x,
-			carrotKeyframe[size].y,
-			carrotKeyframe[size].width,
-			carrotKeyframe[size].height,
-			px,
-			py,
-			width,
-			height
+			imgX,
+			imgY,
+			imgWidth,
+			imgHeight,
+			drawX,
+			drawY,
+			drawWidth,
+			drawHeight
 		);
 
 		ctx.restore();

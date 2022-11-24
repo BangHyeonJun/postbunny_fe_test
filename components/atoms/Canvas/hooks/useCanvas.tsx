@@ -1,12 +1,4 @@
-import {
-	RefObject,
-	useEffect,
-	MouseEvent,
-	TouchEvent,
-	useMemo,
-	useRef,
-	useState,
-} from "react";
+import { RefObject, useEffect, useMemo, useRef, useState } from "react";
 
 interface useCanvasProps {
 	width: number;
@@ -27,15 +19,10 @@ const useCanvas = ({
 }: useCanvasProps) => {
 	const canvasRef: RefObject<HTMLCanvasElement> =
 		useRef<HTMLCanvasElement>(null);
-	const [ctx, setCtx] = useState<CanvasRenderingContext2D | null | undefined>(
-		null
-	);
 
 	useEffect(() => {
 		const canvas = canvasRef.current;
 		const ctx = canvas?.getContext("2d");
-
-		setCtx(ctx);
 
 		const setCanvas = () => {
 			const devicePixelRatio = window.devicePixelRatio ?? 1;
@@ -52,36 +39,94 @@ const useCanvas = ({
 		};
 		setCanvas();
 
-		let requestId: number;
-		const requestAnimation = () => {
-			requestId = window.requestAnimationFrame(requestAnimation);
+		let totalElapsed: number;
+		const requestAnimation = (fps: number) => {
+			let fpsInterval = 1000 / fps;
+			let renderCount = 0;
+			let start: number;
+			let then: number;
 
-			if (ctx) animate(ctx);
+			const cb = (timestamp: number) => {
+				if (start === undefined && then === undefined) {
+					start = window.performance.now();
+					then = window.performance.now();
+				}
+				totalElapsed = window.performance.now() - start;
+
+				const elapsed = timestamp - then;
+				if (elapsed >= fpsInterval) {
+					// draw
+					then = timestamp - (elapsed % fpsInterval);
+					renderCount++;
+					if (ctx) animate(ctx);
+				}
+				requestId = window.requestAnimationFrame(cb);
+			};
+			return cb;
 		};
-		requestAnimation();
+
+		let requestId: number;
+		const initAnimate = (cb: (timestamp: number) => void) => {
+			requestId = window.requestAnimationFrame(cb);
+		};
+
+		initAnimate(requestAnimation(60));
 
 		return () => {
+			console.log("하이");
 			window.cancelAnimationFrame(requestId);
 		};
 	}, [width, height, animate]);
 
-	const handleOnMouseDown = (e: MouseEvent) => {
+	const handleOnMouseDown = (
+		e: MouseEvent,
+		canvasRefCurrent: HTMLCanvasElement
+	) => {
+		const ctx = canvasRefCurrent.getContext("2d");
+
 		if (ctx) pressStart(ctx, e.clientX, e.clientY);
 	};
-	const handleOnMouseMove = (e: MouseEvent) => {
+	const handleOnMouseMove = (
+		e: MouseEvent,
+		canvasRefCurrent: HTMLCanvasElement
+	) => {
+		const ctx = canvasRefCurrent.getContext("2d");
+
 		if (ctx) press(ctx, e.clientX, e.clientY);
 	};
-	const handleOnMouseUp = (e: MouseEvent) => {
+	const handleOnMouseUp = (
+		e: MouseEvent,
+		canvasRefCurrent: HTMLCanvasElement
+	) => {
+		const ctx = canvasRefCurrent.getContext("2d");
+
 		if (ctx) pressEnd(ctx, e.clientX, e.clientY);
 	};
-	const handleOnTouchStart = (e: TouchEvent) => {
+	const handleOnTouchStart = (
+		e: TouchEvent,
+		canvasRefCurrent: HTMLCanvasElement
+	) => {
+		e.preventDefault();
+
+		const ctx = canvasRefCurrent.getContext("2d");
+
 		if (ctx) pressStart(ctx, e.touches[0].clientX, e.touches[0].clientY);
 	};
-	const handleOnTouchMove = (e: TouchEvent) => {
+	const handleOnTouchMove = (
+		e: TouchEvent,
+		canvasRefCurrent: HTMLCanvasElement
+	) => {
+		const ctx = canvasRefCurrent.getContext("2d");
+
 		if (ctx) press(ctx, e.touches[0].clientX, e.touches[0].clientY);
 	};
-	const handleOnTouchEnd = (e: TouchEvent) => {
+	const handleOnTouchEnd = (
+		e: TouchEvent,
+		canvasRefCurrent: HTMLCanvasElement
+	) => {
 		e.preventDefault();
+		const ctx = canvasRefCurrent.getContext("2d");
+
 		if (ctx)
 			pressEnd(ctx, e.changedTouches[0].clientX, e.changedTouches[0].clientY);
 	};

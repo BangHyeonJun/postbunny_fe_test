@@ -6,9 +6,6 @@ const useFullSize = () => {
 
 	useEffect(() => {
 		const setClientSize = () => {
-			// document.documentElement.style.height = "100%";
-			// document.body.style.height = "100%";
-
 			if (window !== undefined) {
 				document.documentElement.style.height = `${window.innerHeight}px`;
 				document.body.style.height = `${window.innerHeight}px`;
@@ -21,7 +18,14 @@ const useFullSize = () => {
 		};
 		setClientSize();
 
+		const handleOrientationChange = () => {
+			setTimeout(() => {
+				setClientSize();
+			}, 200);
+		};
+
 		window.addEventListener("resize", setClientSize);
+		window.addEventListener("orientationchange", handleOrientationChange);
 
 		return () => {
 			document.documentElement.style.height = "";
@@ -30,6 +34,7 @@ const useFullSize = () => {
 			document.body.style.backgroundColor = "";
 
 			window.removeEventListener("resize", setClientSize);
+			window.removeEventListener("orientationchange", setClientSize);
 		};
 	}, []);
 

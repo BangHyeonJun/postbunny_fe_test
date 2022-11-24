@@ -7,11 +7,7 @@ function Status() {
 		<Container
 			maxWidth={"xl"}
 			sx={{
-				position: "absolute",
-				width: "calc(100% - 40px)",
-				top: 0,
-				left: 0,
-				margin: "20px",
+				width: "100%",
 				display: "flex",
 				justifyContent: "center",
 				alignItems: "center",

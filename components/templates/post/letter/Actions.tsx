@@ -1,32 +1,30 @@
 import { BackButton, TextButton } from "@/atoms/Button";
+import Toast from "@/atoms/Toast/toast";
+import { postState } from "@/recoil/post";
 import { Container, Grid } from "@mui/material";
 import { useRouter } from "next/router";
+import { useRecoilState } from "recoil";
 
-function Actions() {
+interface ActionsProps {
+	onFinish: () => void;
+}
+
+function Actions({ onFinish }: ActionsProps) {
+	const [post, setPost] = useRecoilState(postState);
 	const router = useRouter();
 
 	const handleClickBackButton = () => {
 		router.back();
 	};
 
-	const handleClickFinishButton = () => {
-		router.push("/");
-	};
-
 	return (
 		<Container
 			maxWidth={"xl"}
 			sx={{
-				position: "absolute",
-				width: `calc(100% - 40px)`,
-				bottom: 0,
-				left: 0,
-				margin: "20px",
-				padding: 0,
+				width: "100%",
 				display: "flex",
 				justifyContent: "center",
-				alignItems: "center",
-				p: "0px !important",
+				padding: "20px 0px 20px 0px !important",
 			}}
 		>
 			<Grid
@@ -50,7 +48,7 @@ function Actions() {
 					/>
 				</Grid>
 				<Grid item xs>
-					<TextButton alt="편지 작성 완료" onClick={handleClickFinishButton}>
+					<TextButton alt="편지 작성 완료" onClick={() => onFinish()}>
 						편지 작성 완료
 					</TextButton>
 				</Grid>

@@ -28,6 +28,10 @@ function MainActions({ onClickShare }: MainActionsProps) {
 		toast({ text: "하이" });
 	};
 
+	const handleClickShareBtn = () => {
+		onClickShare();
+	};
+
 	const toggleDrawer =
 		(open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
 			if (
@@ -157,7 +161,7 @@ function MainActions({ onClickShare }: MainActionsProps) {
 						<CarrotButton onClick={handleClickPostBunnyBtn} />
 					</Box>
 					<Box sx={{ gridArea: "share", width: "100%" }}>
-						<ShareButton onClick={() => onClickShare()} />
+						<ShareButton onClick={handleClickShareBtn} />
 					</Box>
 					<Box sx={{ gridArea: "home", width: "100%" }}>
 						<HomeButton onClick={handleClickMypageBtn} />

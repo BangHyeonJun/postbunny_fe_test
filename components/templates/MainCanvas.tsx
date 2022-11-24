@@ -25,15 +25,13 @@ function MainCanvas() {
 	const bunny = new Bunny({
 		screenWidth: width,
 		screenHeight: height,
+		bunnyType: "beige",
 	});
+
 	const carrotManager = new CarrotManager({
 		screenWidth: width,
 		screenHeight: height,
 		carrotDatas: [],
-	});
-	const cloudManager = new CloudManager({
-		screenWidth: width,
-		screenHeight: height,
 	});
 
 	const bg = new Background({
@@ -44,26 +42,30 @@ function MainCanvas() {
 	let pressX = 0;
 	let pressType = 0; // 0 : 왼쪽, 1 : 오른쪽, 2
 	let curX = 0;
-	let posX = width / 2;
+	let posX = 0;
 
 	const handleCanvasAnimation = (ctx: CanvasRenderingContext2D) => {
 		ctx.clearRect(0, 0, width, height);
 		ctx.beginPath();
 
-		ctx.fillRect(posX, 300, 50, 50);
+		let type = "STAY";
 
 		if (pressFlag === true) {
 			if (getPositionType(width, curX) === "LEFT") {
-				posX += 4;
-			} else if (getPositionType(width, curX) === "RIGHT") {
 				posX -= 4;
+				type = "LEFT";
+			} else if (getPositionType(width, curX) === "RIGHT") {
+				posX += 4;
+				type = "RIGHT";
 			}
-		} else {
-			// bunny.stay(ctx);
 		}
 
 		bg.draw(ctx, posX);
-		bunny.moveLeft(ctx);
+		carrotManager.draw(ctx, posX);
+		bunny.draw(ctx, "RIGHT");
+
+		// 테스트
+		ctx.fillRect(0, 0, 100, 100);
 
 		// bunny.draw(ctx, pressType, 200, 200, Math.abs(Math.floor(x / 2 / 20) % 8));
 		// cloudManager.animate(ctx);

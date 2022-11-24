@@ -4,9 +4,41 @@ import MainActions from "@/templates/MainActions";
 import Head from "next/head";
 import { useShareSns, ShareComponent } from "@/atoms/Share";
 import { Box } from "@mui/material";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
+
 
 const Home: NextPage = () => {
+	const router = useRouter();
 	const Share = useShareSns();
+
+	useEffect(() => {
+		if (location.hash === "#share") {
+			router.replace("/");
+		}
+
+		const handleHashChange = (url: string) => {
+			if (url === "/#share") {
+				Share.show();
+			} else {
+				Share.hide();
+			}
+		};
+
+		router.events.on("hashChangeStart", handleHashChange);
+
+		return () => {
+			router.events.off("hashChangeStart", handleHashChange);
+		};
+	}, []);
+
+	const handleShowShare = () => {
+		router.push("#share");
+	};
+
+	const handleHideShare = () => {
+		router.back();
+	};
 
 	return (
 		<>
@@ -26,11 +58,11 @@ const Home: NextPage = () => {
 				}}
 			>
 				<MainCanvas />
-				<MainActions onClickShare={Share.show} />
+				<MainActions onClickShare={handleShowShare} />
 
 				<ShareComponent
 					isOpenShareSns={Share.isOpenShareSns}
-					onClose={Share.hide}
+					onClose={handleHideShare}
 				/>
 			</Box>
 		</>

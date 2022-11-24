@@ -147,7 +147,7 @@ function Letter() {
 					width: "100%",
 					height:
 						isKeyboardOpen === true && getMobileOperatingSystem() === "ios"
-							? `${window.visualViewport.height}px`
+							? `${window?.visualViewport?.height}px`
 							: "100%",
 					overflowY:
 						isKeyboardOpen === true && getMobileOperatingSystem() === "ios"
